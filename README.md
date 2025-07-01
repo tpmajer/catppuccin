@@ -2,3 +2,5 @@
 
 - [Adwaita port](./adwaita/)
 - [Ax-Shell port](./ax-shell/)
+
+### Catppuccin color scheme by the [Catppuccin org](catppuccin.com)
