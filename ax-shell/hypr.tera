@@ -1,0 +1,52 @@
+---
+whiskers:
+    version: "^2.5.1"
+    matrix:
+      - flavor
+      - accent
+    filename: "themes/hypr/{{ flavor.identifier }}/colors-{{ accent }}.conf"
+---
+{%- macro tint(color, amt) -%}
+  {{ color | add(lightness=amt*3) | add(hue=amt) | sub(saturation=amt*10) | get(key="hex") }}
+{%- endmacro tint -%}
+{%- macro shade(color, amt) -%}
+  {{ color | sub(lightness=amt*8) | sub(hue=amt) | add(saturation=amt*10) | get(key="hex") }}
+{%- endmacro shade -%}
+
+{%- macro inverse(color) -%}
+  {%- if flavor.dark -%}
+    {{ flavors.latte.colors[color.identifier].hex }}
+  {%- else -%}
+    {{ flavors.mocha.colors[color.identifier].hex }}
+  {%- endif -%}
+{%- endmacro inverse-%}
+
+{%- set accent = flavor.colors[accent] -%}
+
+$wallpaper = 
+$background = {{ mantle.hex }}
+$foreground = {{ text.hex }}
+
+$primary = {{ accent.hex }}
+$secondary = {{ accent.hex }}
+$tertiary = {{ accent.hex }}
+$surface = {{ base.hex }}
+$surface_bright = {{ surface0.hex }}
+$outline = {{ accent.hex }}
+$error = {{ red.hex }}
+
+$shadow = {{ mantle.hex }}
+
+$red = {{ red.hex }}
+$green = {{ green.hex }}
+$yellow = {{ yellow.hex }}
+$blue = {{ blue.hex }}
+$magenta = {{ mauve.hex }}
+$cyan = {{ sky.hex }}
+$white = {{ self::tint(color=accent, amt=1) }}
+$red_dim = {{ self::tint(color=red, amt=1) }}
+$green_dim = {{ self::tint(color=green, amt=1) }}
+$yellow_dim = {{ self::tint(color=yellow, amt=1) }}
+$blue_dim = {{ self::tint(color=blue, amt=1) }}
+$magenta_dim = {{ self::tint(color=mauve, amt=1) }}
+$cyan_dim = {{ self::tint(color=sky, amt=1) }}

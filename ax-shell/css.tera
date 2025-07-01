@@ -1,0 +1,57 @@
+---
+whiskers:
+    version: "^2.5.1"
+    matrix:
+      - flavor
+      - accent
+    filename: "themes/css/{{ flavor.identifier }}/colors-{{ accent }}.css"
+---
+{%- macro tint(color, amt) -%}
+  {{ color | add(lightness=amt*3) | add(hue=amt) | sub(saturation=amt*10) | get(key="hex") }}
+{%- endmacro tint -%}
+{%- macro shade(color, amt) -%}
+  {{ color | sub(lightness=amt*8) | sub(hue=amt) | add(saturation=amt*10) | get(key="hex") }}
+{%- endmacro shade -%}
+
+{%- macro inverse(color) -%}
+  {%- if flavor.dark -%}
+    {{ flavors.latte.colors[color.identifier].hex }}
+  {%- else -%}
+    {{ flavors.mocha.colors[color.identifier].hex }}
+  {%- endif -%}
+{%- endmacro inverse-%}
+
+{%- set accent = flavor.colors[accent] -%}
+
+:vars {
+  --foreground: #{{ text.hex }};
+  --background: #{{ mantle.hex }};
+  --cursor: #{{ red.hex }};
+  --primary: #{{ accent.hex }};
+  --on-primary: #{{ crust.hex }};
+  --secondary: #{{ accent.hex }};
+  --on-secondary: #{{ crust.hex }};
+  --tertiary: #{{ accent.hex }};
+  --on-tertiary: #{{ crust.hex }};
+  --surface: #{{ base.hex }};
+  --surface-bright: #{{ surface0.hex }};
+  --error: #{{ red.hex }};
+  --error-dim: #{{ self::tint(color=red, amt=1) }};
+  --on-error: #{{ crust.hex }};
+  --error-container: #{{ self::shade(color=red, amt=1) }};
+  --outline: #{{ accent.hex }};
+  --shadow: #{{ mantle.hex }};
+  --red: #{{ red.hex }};
+  --red-dim: #{{ self::tint(color=red, amt=1) }};
+  --green: #{{ green.hex }};
+  --green-dim: #{{ self::tint(color=green, amt=1) }};
+  --yellow: #{{ yellow.hex }};
+  --yellow-dim: #{{ self::tint(color=yellow, amt=1) }};
+  --blue: #{{ blue.hex }};
+  --blue-dim: #{{ self::tint(color=blue, amt=1) }};
+  --magenta: #{{ mauve.hex }};
+  --magenta-dim: #{{ self::tint(color=mauve, amt=1) }};
+  --cyan: #{{ sky.hex }};
+  --cyan-dim: #{{ self::tint(color=sky, amt=1) }};
+  --white: #{{ self::tint(color=accent, amt=1) }};
+}
