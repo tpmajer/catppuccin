@@ -17,5 +17,5 @@ sudo flatpak override --filesystem=xdg-config/gtk-3.0 && sudo flatpak override -
 >You might need to log out/reboot you're computer for it to take effect.
 
 ## Credit
-- Color scheme by [Catppuccin](catppuccin.com)
+- Color scheme and Whiskers by [Catppuccin](catppuccin.com)
 - [adw-colors](https://github.com/lassekongo83/adw-colors) by [lassekongo83](https://github.com/lassekongo83)

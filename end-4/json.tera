@@ -1,0 +1,76 @@
+---
+whiskers:
+    version: "^2.5.1"
+    matrix:
+      - flavor
+      - accent
+    filename: "themes/json/{{ flavor.identifier }}/colors-{{ accent }}.json"
+---
+{%- macro tint(color, amt) -%}
+  {{ color | add(lightness=amt*3) | add(hue=amt) | sub(saturation=amt*10) | get(key="hex") }}
+{%- endmacro tint -%}
+{%- macro shade(color, amt) -%}
+  {{ color | sub(lightness=amt*8) | sub(hue=amt) | add(saturation=amt*10) | get(key="hex") }}
+{%- endmacro shade -%}
+
+{%- macro inverse(color) -%}
+  {%- if flavor.dark -%}
+    {{ flavors.latte.colors[color.identifier].hex }}
+  {%- else -%}
+    {{ flavors.mocha.colors[color.identifier].hex }}
+  {%- endif -%}
+{%- endmacro inverse-%}
+
+{%- set accent = flavor.colors[accent] -%}
+
+{
+  "background": "#{{ mantle.hex }}",
+  "error": "#{{ red.hex }}",
+  "error_container": "#{{ self::shade(color=red, amt=1) }}",
+  "inverse_on_surface": "#{{ self::inverse(color=text) }}",
+  "inverse_primary": "#{{ self::inverse(color=accent) }}",
+  "inverse_surface": "#{{ self::inverse(color=base) }}",
+  "on_background": "#{{ text.hex }}",
+  "on_error": "#{{ crust.hex }}",
+  "on_error_container": "#{{ crust.hex }}",
+  "on_primary": "#{{ crust.hex }}",
+  "on_primary_container": "#{{ crust.hex }}",
+  "on_primary_fixed": "#{{ crust.hex }}",
+  "on_primary_fixed_variant": "#{{ crust.hex }}",
+  "on_secondary": "#{{ crust.hex }}",
+  "on_secondary_container": "#{{ accent.hex }}",
+  "on_secondary_fixed": "#{{ crust.hex }}",
+  "on_secondary_fixed_variant": "#{{ crust.hex }}",
+  "on_surface": "#{{ text.hex }}",
+  "on_surface_variant": "#{{ text.hex }}",
+  "on_tertiary": "#{{ red.hex }}",
+  "on_tertiary_container": "#{{ text.hex }}",
+  "on_tertiary_fixed": "#{{ crust.hex }}",
+  "on_tertiary_fixed_variant": "#{{ crust.hex }}",
+  "outline": "#{{ text.hex }}",
+  "outline_variant": "#{{ accent.hex }}",
+  "primary": "#{{ accent.hex }}",
+  "primary_container": "#{{ accent.hex }}",
+  "primary_fixed": "#{{ accent.hex }}",
+  "primary_fixed_dim": "#{{ self::shade(color=accent, amt=1) }}",
+  "scrim": "#{{ crust.hex }}",
+  "secondary": "#{{ accent.hex }}",
+  "secondary_container": "#{{ mantle.hex }}",
+  "secondary_fixed": "#{{ accent.hex }}",
+  "secondary_fixed_dim": "#{{ self::shade(color=accent, amt=1) }}",
+  "shadow": "#000000",
+  "surface": "#{{ mantle.hex }}",
+  "surface_bright": "{{ base.hex }}",
+  "surface_container": "#{{ mantle.hex }}",
+  "surface_container_high": "#{{ mantle.hex }}",
+  "surface_container_highest": "#{{ surface2.hex }}",
+  "surface_container_low": "#{{ base.hex }}",
+  "surface_container_lowest": "#{{ crust.hex }}",
+  "surface_dim": "#{{ self::shade(color=mantle, amt=1) }}",
+  "surface_tint": "#{{ surface0.hex }}",
+  "surface_variant": "#{{ base.hex }}",
+  "tertiary": "#{{ accent.hex }}",
+  "tertiary_container": "#{{ base.hex }}",
+  "tertiary_fixed": "#{{ accent.hex }}",
+  "tertiary_fixed_dim": "#{{ self::shade(color=accent, amt=1) }}"
+}

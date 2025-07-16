@@ -1,0 +1,85 @@
+---
+whiskers:
+    version: "^2.5.1"
+    matrix:
+      - flavor
+      - accent
+    filename: "themes/scss/{{ flavor.identifier }}/material_colors-{{ accent }}.scss"
+---
+{%- macro tint(color, amt) -%}
+  {{ color | add(lightness=amt*3) | add(hue=amt) | sub(saturation=amt*10) | get(key="hex") }}
+{%- endmacro tint -%}
+{%- macro shade(color, amt) -%}
+  {{ color | sub(lightness=amt*8) | sub(hue=amt) | add(saturation=amt*10) | get(key="hex") }}
+{%- endmacro shade -%}
+
+{%- macro inverse(color) -%}
+  {%- if flavor.dark -%}
+    {{ flavors.latte.colors[color.identifier].hex }}
+  {%- else -%}
+    {{ flavors.mocha.colors[color.identifier].hex }}
+  {%- endif -%}
+{%- endmacro inverse-%}
+
+{%- set accent = flavor.colors[accent] -%}
+
+$darkmode: {% if flavor.light %}False{% else %}True{% endif %};
+$transparent: False;
+$primary_paletteKeyColor: #{{ accent.hex }};
+$secondary_paletteKeyColor: #{{ accent.hex }};
+$tertiary_paletteKeyColor: #{{ accent.hex }};
+$neutral_paletteKeyColor: #{{ accent.hex }};
+$neutral_variant_paletteKeyColor: #{{ base.hex }};
+$background: #{{ mantle.hex }};
+$onBackground: #{{ text.hex }};
+$surface: #{{ mantle.hex }};
+$surfaceDim: #{{ self::shade(color=mantle, amt=1) }};
+$surfaceBright: #{{ surface0.hex }};
+$surfaceContainerLowest: #{{ crust.hex }};
+$surfaceContainerLow: #{{ base.hex }};
+$surfaceContainer: #{{ mantle.hex }};
+$surfaceContainerHigh: #{{ mantle.hex }};
+$surfaceContainerHighest: #{{ surface2.hex }};
+$onSurface: #{{ text.hex }};
+$surfaceVariant: #{{ base.hex }};
+$onSurfaceVariant: #{{ text.hex }};
+$inverseSurface: #{{ self::inverse(color=base) }};
+$inverseOnSurface: #{{ self::inverse(color=text) }};
+$outline: #{{ text.hex }};
+$outlineVariant: #{{ accent.hex }};
+$shadow: #000000;
+$scrim: #{{ crust.hex }};
+$surfaceTint: #{{ surface0.hex }};
+$primary: #{{ accent.hex }};
+$onPrimary: #{{ crust.hex }};
+$primaryContainer: #{{ accent.hex }};
+$onPrimaryContainer: #{{ crust.hex }};
+$inversePrimary: #{{ self::inverse(color=accent) }};
+$secondary: #{{ accent.hex }};
+$onSecondary: #{{ crust.hex }};
+$secondaryContainer: #{{ mantle.hex }};
+$onSecondaryContainer: #{{ accent.hex }};
+$tertiary: #{{ accent.hex }};
+$onTertiary: #{{ crust.hex }};
+$tertiaryContainer: #{{ base.hex }};
+$onTertiaryContainer: #{{ text.hex }};
+$error: #{{ red.hex }};
+$onError: #{{ crust.hex }};
+$errorContainer: #{{ self::shade(color=red, amt=1) }};
+$onErrorContainer: #{{ crust.hex }};
+$primaryFixed: #{{ accent.hex }};
+$primaryFixedDim: #{{ self::shade(color=accent, amt=1) }};
+$onPrimaryFixed: #{{ crust.hex }};
+$onPrimaryFixedVariant: #{{ crust.hex }};
+$secondaryFixed: #{{ accent.hex }};
+$secondaryFixedDim: #{{ self::shade(color=accent, amt=1) }};
+$onSecondaryFixed: #{{ crust.hex }};
+$onSecondaryFixedVariant: #{{ crust.hex }};
+$tertiaryFixed: #{{ accent.hex }};
+$tertiaryFixedDim: #{{ self::shade(color=accent, amt=1) }};
+$onTertiaryFixed: #{{ crust.hex }};
+$onTertiaryFixedVariant: #{{ crust.hex }};
+$success: #{{ green.hex }};
+$onSuccess: #{{ crust.hex }};
+$successContainer: #{{ base.hex }};
+$onSuccessContainer: #{{ text.hex }};

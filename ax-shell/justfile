@@ -1,0 +1,6 @@
+all: json css
+
+hypr:
+  whiskers hypr.tera
+css:
+  whiskers css.tera

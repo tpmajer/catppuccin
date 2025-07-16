@@ -1,0 +1,7 @@
+all: json scss
+
+json:
+    whiskers json.tera
+
+scss:
+  whiskers scss.tera
