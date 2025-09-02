@@ -10,7 +10,7 @@ git clone https://github.com/claymorwan/catppuccin
 cd catppuccin/end-4
 rm ~/.local/state/quickshell/user/generated/colors.json ~/.local/state/quickshell/user/generated/material_colors.scss
 cp ./themes/json/<flavor>/colors-<accent>.json ~/.local/state/quickshell/user/generated/colors.json
-cp ./themes/hypr/<flavor>/material_colors-<accent>.scss /home/claymorwan/.local/state/quickshell/user/generated/material_colors
+cp ./themes/hypr/<flavor>/material_colors-<accent>.scss ~/.local/state/quickshell/user/generated/material_colors
 ```
 3. Reload the shell
 
